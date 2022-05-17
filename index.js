@@ -5,6 +5,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -15,7 +16,15 @@ const config = require('./package.json');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
+const connection = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'Bing070318',
+        database: 'employee_db'
+    },
+    console.log(`Connected to the employee_db database.`)
+);
 //Welcome heading
 console.log(
     logo({
@@ -218,6 +227,8 @@ initPromptLoop();
 app.use((req, res) => {
     res.status(404).end();
 });
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Connect to the database before starting the Express.js server
+sequelize.sync().then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
 });
+
