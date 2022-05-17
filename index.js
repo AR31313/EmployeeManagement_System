@@ -171,12 +171,6 @@ function addEmployee() {
         ])
         .then(function (response) {
             console.log(response);
-            // creates a new  Object with responses, which adds the response to the employee.
-            const newemployee =
-                response.first_name;
-            let employeeArray;
-            employeeArray.push(newemployee);
-
             connection.query(
                 `INSERT INTO employee SET ?`,
                 response,
@@ -184,6 +178,7 @@ function addEmployee() {
                     console.log(results);
                     initPromptLoop();
                 }
+
             );
         });
 }
@@ -228,7 +223,8 @@ app.use((req, res) => {
     res.status(404).end();
 });
 // Connect to the database before starting the Express.js server
-sequelize.sync().then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
+
+app.listen(PORT, () => {
+    console.log('Now listening');
 });
 
