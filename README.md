@@ -34,6 +34,7 @@
 ---
 
 The application user experience is intuitive and easy to navigate.
+![image](https://user-images.githubusercontent.com/96843377/168731870-fd544af0-83d4-4a76-b81f-d74706040387.png)
 
 ---
 
@@ -42,5 +43,7 @@ The application user experience is intuitive and easy to navigate.
 https://ar31313.github.io/EmployeeTracker/
 
 ### Walkthrough Video:
+https://user-images.githubusercontent.com/96843377/168732061-8c14f8b9-cfc9-4ae3-8341-ee94a96f5148.mp4
 
 A walkthrough video that demonstrates the functionality of the employee tracker
+https://drive.google.com/file/d/191yNHnqEWhWHw04SMkcVpFocUVFZnlaQ/view?usp=sharing
