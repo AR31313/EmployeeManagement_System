@@ -254,16 +254,8 @@ function updateRole(name) {
                 );
             })
     });
-
-    // call the initPromptLoop function to start the Prompt Questions
 }
+// call the initPromptLoop function to start the Prompt Questions
 initPromptLoop();
-// app.use((req, res) => {
-//     res.status(404).end();
-// });
-// Connect to the database before starting the Express.js server
 
-// app.listen(PORT, () => {
-//     console.log('Now listening');
-// });
 
