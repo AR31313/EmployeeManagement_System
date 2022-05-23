@@ -68,6 +68,7 @@ function initPromptLoop() {
                 } else if (choice.action === 'Add an employee') {
                     addEmployee();
                 } else if (choice.action === 'Update employee role') {
+                    console.log('line71');
                     updateRole();
                 }
                 else if (choice.action === 'Exit') {
@@ -185,46 +186,87 @@ function addEmployee() {
 
 // Selection to update a role for a specific employee.
 
-async function updateRole() {
-    let employeeArray = await connection.query('SELECT role_id, first_name FROM role ORDER BY role.id;')
-    const employeeId = await inquirer
-        .prompt([
-            {
-                type: "list",
-                name: "employee",
-                message: "Choose an Employee to Update",
-                choices: employeeArray.map(res => res.first_name)
-            }
-        ]);
+// async function updateRole() {
+//     let employeeArray = await connection.query('SELECT role_id, first_name FROM role ORDER BY role.id;')
+//     const employeeId = await inquirer
+//         .prompt([
+//             {
+//                 type: "list",
+//                 name: "employee",
+//                 message: "Choose an Employee to Update",
+//                 choices: employeeArray.map(res => res.first_name)
+//             }
+//         ]);
 
-    let roleId;
-    for (const row of res) {
-        if (row.title === role) {
-            roleId = row.id;
-            continue;
+//     let roleId;
+//     for (const row of res) {
+//         if (row.title === role) {
+//             roleId = row.id;
+//             continue;
+//         }
+//     }
+//     // Goes back to 
+//     connection.query(
+//         `UPDATE roles SET role_id = ${role_id}
+//                 WHERE employee.id = ${employeeId.name}`, async (err, res) => {
+//         if (err) throw err;
+//         console.log(results);
+//         addRole();
+//     }
+//     );
+// };
+
+function updateRole(name) {
+    console.log('line 221');
+    const sql = `SELECT id, first_name, role_id FROM employee ORDER BY role_id;`;
+    connection.query(sql, function (err, rows) {
+        if (err) {
+            throw err;
         }
-    }
-    // Goes back to 
-    connection.query(
-        `UPDATE roles SET role_id = ${role_id}
-                WHERE employee.id = ${employeeId.name}`, async (err, res) => {
-        if (err) throw err;
-        console.log(results);
-        addRole();
-    }
-    );
-};
+        console.table(rows)
+    });
+    connection.query("SELECT * FROM roles", function (err, res) {
+        console.log("\n");
+        console.table(res);
+        inquirer
+            .prompt([
+                {
+                    type: "number",
+                    name: "update_name",
+                    message: "What is the id of the employee being updated?",
+                },
+                {
+                    type: "number",
+                    name: "update_role",
+                    message: "What is the new role ID of the employee",
+                },
+            ])
+            .then(function (response) {
+                console.log(response);
+                connection.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [response.update_role, response.update_name],
+                    (err, results) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log('Role Updated!');
+                        initPromptLoop();
+                    }
 
 
-// call the initPromptLoop function to start the Prompt Questions
+                );
+
+            })
+    });
+
+    // call the initPromptLoop function to start the Prompt Questions
+}
 initPromptLoop();
-
-app.use((req, res) => {
-    res.status(404).end();
-});
+// app.use((req, res) => {
+//     res.status(404).end();
+// });
 // Connect to the database before starting the Express.js server
 
-app.listen(PORT, () => {
-    console.log('Now listening');
-});
+// app.listen(PORT, () => {
+//     console.log('Now listening');
+// });
 
