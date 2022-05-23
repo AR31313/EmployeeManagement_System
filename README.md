@@ -44,6 +44,11 @@ https://ar31313.github.io/EmployeeTracker/
 
 ### Walkthrough Video:
 https://user-images.githubusercontent.com/96843377/168732061-8c14f8b9-cfc9-4ae3-8341-ee94a96f5148.mp4
+UPDATE_ROLE method:
+
+https://user-images.githubusercontent.com/96843377/169870157-bd1a8db3-b284-4a21-9c0a-d3190819fc6b.mp4
+
+
 
 Video that demonstrates the functionality of the employee tracker
 https://drive.google.com/file/d/191yNHnqEWhWHw04SMkcVpFocUVFZnlaQ/view?usp=sharing
