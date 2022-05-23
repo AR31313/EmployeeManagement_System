@@ -52,6 +52,7 @@ function initPromptLoop() {
                 choices: ["View all departments",
                     "View all roles",
                     "View all employees",
+                    "Add a Dept",
                     "Add a role",
                     "Add an employee",
                     "Update employee role",
@@ -61,6 +62,8 @@ function initPromptLoop() {
                     viewDepartments();
                 } else if (choice.action === 'View all roles') {
                     viewRoles();
+                } else if (choice.action === 'Add a Dept') {
+                    addDept();
                 } else if (choice.action === 'View all employees') {
                     viewEmployees();
                 } else if (choice.action === 'Add a role') {
@@ -68,12 +71,12 @@ function initPromptLoop() {
                 } else if (choice.action === 'Add an employee') {
                     addEmployee();
                 } else if (choice.action === 'Update employee role') {
-                    console.log('line71');
                     updateRole();
                 }
                 else if (choice.action === 'Exit') {
                     connection.end();
                 }
+
             })
 };
 // Selection to view all of the departments.
@@ -133,7 +136,35 @@ function addRole() {
                 `INSERT INTO roles SET ?`,
                 response,
                 (err, results) => {
-                    console.log(results);
+                    console.log('Roles Added!');
+                    initPromptLoop();
+                }
+            );
+        });
+}
+// Selection to add a new Dept.
+function addDept() {
+    connection.query("SELECT * FROM department", function (err, res) {
+        console.log("\n");
+        console.table(res);
+    });
+
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the Title of the new Department?",
+            },
+        ])
+        .then(function (response) {
+            console.log(response);
+            //Hardcoded query
+            connection.query(
+                `INSERT INTO department SET ?`,
+                response,
+                (err, results) => {
+                    console.log('Department added!');
                     initPromptLoop();
                 }
             );
@@ -176,7 +207,7 @@ function addEmployee() {
                 `INSERT INTO employee SET ?`,
                 response,
                 (err, results) => {
-                    console.log(results);
+                    console.log("Employee Added");
                     initPromptLoop();
                 }
 
@@ -187,7 +218,6 @@ function addEmployee() {
 // Selection to update a role for a specific employee.
 
 function updateRole(name) {
-    console.log('line 221');
     const sql = `SELECT id, first_name, role_id FROM employee ORDER BY role_id;`;
     connection.query(sql, function (err, rows) {
         if (err) {
