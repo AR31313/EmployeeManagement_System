@@ -186,36 +186,6 @@ function addEmployee() {
 
 // Selection to update a role for a specific employee.
 
-// async function updateRole() {
-//     let employeeArray = await connection.query('SELECT role_id, first_name FROM role ORDER BY role.id;')
-//     const employeeId = await inquirer
-//         .prompt([
-//             {
-//                 type: "list",
-//                 name: "employee",
-//                 message: "Choose an Employee to Update",
-//                 choices: employeeArray.map(res => res.first_name)
-//             }
-//         ]);
-
-//     let roleId;
-//     for (const row of res) {
-//         if (row.title === role) {
-//             roleId = row.id;
-//             continue;
-//         }
-//     }
-//     // Goes back to 
-//     connection.query(
-//         `UPDATE roles SET role_id = ${role_id}
-//                 WHERE employee.id = ${employeeId.name}`, async (err, res) => {
-//         if (err) throw err;
-//         console.log(results);
-//         addRole();
-//     }
-//     );
-// };
-
 function updateRole(name) {
     console.log('line 221');
     const sql = `SELECT id, first_name, role_id FROM employee ORDER BY role_id;`;
@@ -251,10 +221,7 @@ function updateRole(name) {
                         console.log('Role Updated!');
                         initPromptLoop();
                     }
-
-
                 );
-
             })
     });
 
